@@ -357,7 +357,7 @@ button{cursor:pointer}
         <div class="stat-card"><div class="sc-icon">⭐</div><div class="sc-lbl">Avg Score</div><div class="sc-val" style="color:var(--gold)" id="a-avg">—</div></div>
         <div class="stat-card"><div class="sc-icon">🏆</div><div class="sc-lbl">Best Score</div><div class="sc-val" style="color:var(--green)" id="a-best">—</div></div>
       </div>
-      <div class="sec-lbl">Module Overview</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="sec-lbl" style="margin-bottom:0">Module Overview</div><button class="btn-sm" style="color:var(--gold);border-color:rgba(245,158,11,.3)" onclick="loadAdmin()">↻ Refresh</button></div>
       <div class="mod-grid" id="mod-grid"></div>
     </div>
 
@@ -611,7 +611,7 @@ function goScreen(name){
   } else if(name==="admin"){
     R.innerHTML=`<button class="btn-sm" onclick="goScreen('landing')">Exit Admin</button>`;
     if(!apiOk())document.getElementById("no-api").classList.remove("hidden");
-    loadAdmin(); buildModGrid({}); renderQList();
+    loadAdmin(); renderQList();
   } else {
     R.innerHTML=name==="quiz"?`<button class="btn-sm" onclick="goScreen('categories')">✕ Exit</button>`:"";
   }
