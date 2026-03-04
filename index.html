@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -418,7 +417,7 @@ button{cursor:pointer}
 // ═══════════════════════════════════════════════════════
 //  ▼▼▼  PASTE YOUR APPS SCRIPT URL BELOW  ▼▼▼
 // ═══════════════════════════════════════════════════════
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxV33tPGcniKZLcxWVs3Dqq1soDHexeZiW9QDzaD0iO2tyZGsCNwzjbb7OWpcCkDxe5/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCfxkn1-7vhjDk9WyQWiEaZhYNvpHXCrV9vmF9rPDJeFaZFfgc0_HvYIcjakOxK1tr/exec";
 // ═══════════════════════════════════════════════════════
 
 const ADMIN_PWD = "ABSLI2025";
@@ -578,7 +577,13 @@ async function apiFetch(p){
 }
 async function apiPost(b){
   if(!apiOk())return null;
-  try{const r=await fetch(APPS_SCRIPT_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)});return await r.json();}catch{return null;}
+  try{
+    // Use GET params - more reliable with Apps Script redirects
+    const params = new URLSearchParams();
+    Object.keys(b).forEach(k => params.set(k, b[k]));
+    const r = await fetch(APPS_SCRIPT_URL + '?' + params.toString());
+    return await r.json();
+  }catch(e){console.warn('apiPost error:',e);return null;}
 }
 
 // ── Init ───────────────────────────────────────────────
